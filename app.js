@@ -12,7 +12,8 @@ var id;
     
     
 // node_modules 에 있는 express 관련 파일을 가져온다.
-var express = require('express')
+var express = require('express');
+const { send } = require('express/lib/response');
 
 // express 는 함수이므로, 반환값을 변수에 저장한다.
 var app = express()
@@ -85,82 +86,8 @@ app.post('/', function(req, res){
     });
   });
   
+
 app.get('/img1', function(req,res){
-  var conn=mysql.createConnection({
-    host     : '210.125.31.247',
-    port     : '3306',
-    user     : 'test',
-    password : 's1234',
-    database : 'theroad'
-  })
-  conn.connect();
-  var query=conn.query('select picture from usertable',function(err,rows){
-    if(err) throw err;
-    res.type('png');
-    res.send(rows[0]['picture']);
-  });
-});
-app.get('/img2', function(req,res){
-  var conn=mysql.createConnection({
-    host     : '210.125.31.247',
-    port     : '3306',
-    user     : 'test',
-    password : 's1234',
-    database : 'theroad'
-  })
-  conn.connect();
-  var query=conn.query('select picture from usertable',function(err,rows){
-    if(err) throw err;
-    res.type('png');
-    res.send(rows[1]['picture']);
-  });
-});
-app.get('/img3', function(req,res){
-  var conn=mysql.createConnection({
-    host     : '210.125.31.247',
-    port     : '3306',
-    user     : 'test',
-    password : 's1234',
-    database : 'theroad'
-  })
-  conn.connect();
-  var query=conn.query('select picture from usertable',function(err,rows){
-    if(err) throw err;
-    res.type('png');
-    res.send(rows[2]['picture']);
-  });
-});
-app.get('/img4', function(req,res){
-  var conn=mysql.createConnection({
-    host     : '210.125.31.247',
-    port     : '3306',
-    user     : 'test',
-    password : 's1234',
-    database : 'theroad'
-  })
-  conn.connect();
-  var query=conn.query('select picture from usertable',function(err,rows){
-    if(err) throw err;
-    res.type('png');
-    res.send(rows[0]['picture']);
-  });
-});
-app.get('/img5', function(req,res){
-  var conn=mysql.createConnection({
-    host     : '210.125.31.247',
-    port     : '3306',
-    user     : 'test',
-    password : 's1234',
-    database : 'theroad'
-  })
-  conn.connect();
-  var query=conn.query('select picture from usertable',function(err,rows){
-    if(err) throw err;
-    res.type('png');
-    res.send(rows[1]['picture']);
-  });
-});
-app.get('/img6', function(req,res){
   var conn=mysql.createConnection({
     host     : '210.125.31.247',
     port     : '3306',
@@ -169,9 +96,163 @@ app.get('/img6', function(req,res){
     database : 'upright'
   })
   conn.connect();
-  var query=conn.query('select img from user_information',function(err,rows){
+  var query=conn.query('select img from user_information where id=\''+id+'\'',function(err,rows){
     if(err) throw err;
     res.type('png');
-    res.send(rows[0]['img']);
+    if(rows[0]['img']!=null)
+      res.send(rows[0]['img']);
+  });
+});
+
+app.get('/img2', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('select img from user_information where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[1]['img']!=null)
+      res.send(rows[1]['img']);
+  });
+});
+
+app.get('/img3', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('select img from user_information where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[2]['img']!=null)
+      res.send(rows[2]['img']);
+  });
+});
+
+app.get('/img4', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('select img from user_information where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[3]['img']!=null)
+      res.send(rows[3]['img']);
+  });
+});
+
+app.get('/img5', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('select img from user_information where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[4]['img']!=null)
+      res.send(rows[4]['img']);
+  });
+});
+
+app.get('/correctionimg1', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[0]['img']!=null)
+      res.send(rows[0]['img']);
+  });
+});
+
+app.get('/correctionimg2', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[1]['img']!=null)
+      res.send(rows[1]['img']);
+  });
+});
+
+app.get('/correctionimg3', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[2]['img']!=null)
+      res.send(rows[2]['img']);
+  });
+});
+
+app.get('/correctionimg4', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[3]['img']!=null)
+     res.send(rows[3]['img']);
+  });
+});
+
+app.get('/correctionimg5', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    if(rows[4]['img']!=null)
+      res.send(rows[4]['img']);
   });
 });

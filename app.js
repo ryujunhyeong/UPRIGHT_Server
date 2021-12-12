@@ -9,11 +9,7 @@ const connection = mysql.createConnection({
 });
 var id;
     connection.connect();
-    connection.query('SELECT id FROM upright.now_id', (error, rows, fields) => {
-      if (error) throw error;
-      console.log('User info is: ', rows[0].id); 
-      id=rows[0].id;
-    });
+    
     
 // node_modules 에 있는 express 관련 파일을 가져온다.
 var express = require('express')
@@ -33,6 +29,11 @@ app.listen(3000, function() {
 
 app.get('/', function(req,res) {
     res.sendFile(__dirname + "/public/index.html")
+    connection.query('SELECT id FROM upright.now_id', (error, rows, fields) => {
+      if (error) throw error;
+      console.log('User info is: ', rows[0].id); 
+      id=rows[0].id;
+    });
 })
 
 // localhost:3000/main 브라우저에 res.sendFile() 내부의 파일이 띄워진다.
@@ -46,6 +47,7 @@ app.use(express.static('public'))
 app.post('/', function(req, res){
   var responseData = {};
   responseData.score = [];
+
     connection.query('SELECT gradient, turtle, eye, mouth FROM upright.habit_count where id=\''+id+'\'', function(err,rows,fields){
       //console.log(rows);
       if(err) throw err;

@@ -41,7 +41,6 @@ app.get('/main', function(req,res) {
     res.sendFile(__dirname + "/public/generic.html")
 })
 
-
 app.use(express.static('public'))
 
 app.post('/', function(req, res){
@@ -85,3 +84,94 @@ app.post('/', function(req, res){
       res.json(responseData)
     });
   });
+  
+app.get('/img1', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'theroad'
+  })
+  conn.connect();
+  var query=conn.query('select picture from usertable',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    res.send(rows[0]['picture']);
+  });
+});
+app.get('/img2', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'theroad'
+  })
+  conn.connect();
+  var query=conn.query('select picture from usertable',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    res.send(rows[1]['picture']);
+  });
+});
+app.get('/img3', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'theroad'
+  })
+  conn.connect();
+  var query=conn.query('select picture from usertable',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    res.send(rows[2]['picture']);
+  });
+});
+app.get('/img4', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'theroad'
+  })
+  conn.connect();
+  var query=conn.query('select picture from usertable',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    res.send(rows[0]['picture']);
+  });
+});
+app.get('/img5', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'theroad'
+  })
+  conn.connect();
+  var query=conn.query('select picture from usertable',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    res.send(rows[1]['picture']);
+  });
+});
+app.get('/img6', function(req,res){
+  var conn=mysql.createConnection({
+    host     : '210.125.31.247',
+    port     : '3306',
+    user     : 'test',
+    password : 's1234',
+    database : 'upright'
+  })
+  conn.connect();
+  var query=conn.query('select img from user_information',function(err,rows){
+    if(err) throw err;
+    res.type('png');
+    res.send(rows[0]['img']);
+  });
+});

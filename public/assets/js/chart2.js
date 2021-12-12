@@ -77,8 +77,8 @@ function sendBjax(url) {
        // for (var i = 0; i < comp_data.length; i++) {
        //     comp_data[i] = score[i];
        // }
-        for (var i = 16; i < 20; i++) {
-          comp_data2[i-16] = score[i];
+        for (var i = 4; i < 8; i++) {
+          comp_data2[i-4] = score[i];
         }
         data2.datasets[0].data = comp_data2;
         myBarChart2.update();

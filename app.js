@@ -7,9 +7,14 @@ const connection = mysql.createConnection({
   password : 's1234',
   database : 'upright'
 });
-
+var id;
     connection.connect();
-
+    connection.query('SELECT id FROM upright.now_id', (error, rows, fields) => {
+      if (error) throw error;
+      console.log('User info is: ', rows[0].id); 
+      id=rows[0].id;
+    });
+    
 // node_modules 에 있는 express 관련 파일을 가져온다.
 var express = require('express')
 
@@ -39,11 +44,9 @@ app.get('/main', function(req,res) {
 app.use(express.static('public'))
 
 app.post('/', function(req, res){
-    var responseData = {};
-    responseData.score = [];
-    responseData.score2 = [];
-    connection.query('SELECT gradient, turtle, eye, mouth FROM upright.habit_count', function(err,rows,fields){
-      
+  var responseData = {};
+  responseData.score = [];
+    connection.query('SELECT gradient, turtle, eye, mouth FROM upright.habit_count where id=\''+id+'\'', function(err,rows,fields){
       //console.log(rows);
       if(err) throw err;
       if(rows[0]){
@@ -58,9 +61,7 @@ app.post('/', function(req, res){
       else{
         responseData.result = "none";
         responseData.score = "";
-      }
-      
-      
+      } 
     });
     connection.query('SELECT AVG(gradient)as gradient, AVG(turtle)as turtle, AVG(eye)as eye, AVG(mouth)as mouth FROM upright.habit_count', function(err,rows,fields){
       //console.log(rows);

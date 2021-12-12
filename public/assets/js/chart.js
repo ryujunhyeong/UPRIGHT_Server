@@ -59,7 +59,7 @@ var myBarChart = new Chart(ctx, {
 var button = document.getElementById("sendAjax")
  
 button.addEventListener("click", function() {
-    sendAjax('http://localhost:3000/'); 
+    sendAjax('/'); //여기 주소가 뭘 의미하는지 잘 모르겠는데 ajax쓰면 주소를 넣더라
 })
  
 function sendAjax(url) {
@@ -74,33 +74,14 @@ function sendAjax(url) {
         var score = result.score;
         var comp_data = data.datasets[0].data;
  
-        for (var i = 0; i < comp_data.length; i++) {
-            comp_data[i] = score[i];
+       // for (var i = 0; i < comp_data.length; i++) {
+       //     comp_data[i] = score[i];
+       // }
+        for (var i = 0; i < 4; i++) {
+          comp_data[i] = score[i];
         }
- 
         data.datasets[0].data = comp_data;
         myBarChart.update();
     })
 }
 
-
-//서버에 들어가야하는 내용
-//app.post('/', function(req, res){
-    //var responseData = {};
-   
-    //var query =  connection.query('select ?? from ?? where uid="ma" ORDER BY ?? DESC limit 10', function(err,rows){
-      //responseData.score = [];
-      //if(err) throw err;
-      //if(rows[0]){
-        //responseData.result = "ok";
-        //rows.forEach(function(val){
-          //responseData.score.push(val.score);
-        //})
-      //}
-      //else{
-        //responseData.result = "none";
-        //responseData.score = "";
-      //}
-      //res.json(responseData);
-    //});
-  //});

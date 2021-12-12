@@ -1,3 +1,4 @@
+
 const mysql      = require('mysql');
 const connection = mysql.createConnection({
   host     : '210.125.31.247',
@@ -7,14 +8,7 @@ const connection = mysql.createConnection({
   database : 'upright'
 });
 
-connection.connect();
-
-connection.query('SELECT gradient FROM upright.habit_count', (error, rows, fields) => {
-  if (error) throw error;
-  console.log('User info is: ', rows);
-});
-
-connection.end();
+    connection.connect();
 
 // node_modules 에 있는 express 관련 파일을 가져온다.
 var express = require('express')
@@ -46,14 +40,15 @@ app.use(express.static('public'))
 
 app.post('/', function(req, res){
     var responseData = {};
-   
-    var query =  connection.query('select ?? from ?? where uid="ma" ORDER BY ?? DESC limit 10', function(err,rows){
+
+    var query =  connection.query('SELECT gradient FROM upright.habit_count', function(err,rows,fields){
       responseData.score = [];
+      console.log(rows);
       if(err) throw err;
       if(rows[0]){
         responseData.result = "ok";
         rows.forEach(function(val){
-          responseData.score.push(val.score);
+          responseData.score.push(val.gradient);
         })
       }
       else{
@@ -62,4 +57,6 @@ app.post('/', function(req, res){
       }
       res.json(responseData);
     });
+
+    
   });

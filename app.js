@@ -40,23 +40,45 @@ app.use(express.static('public'))
 
 app.post('/', function(req, res){
     var responseData = {};
-
-    var query =  connection.query('SELECT gradient FROM upright.habit_count', function(err,rows,fields){
-      responseData.score = [];
-      console.log(rows);
+    responseData.score = [];
+    responseData.score2 = [];
+    connection.query('SELECT gradient, turtle, eye, mouth FROM upright.habit_count', function(err,rows,fields){
+      
+      //console.log(rows);
       if(err) throw err;
       if(rows[0]){
         responseData.result = "ok";
         rows.forEach(function(val){
           responseData.score.push(val.gradient);
+          responseData.score.push(val.turtle);
+          responseData.score.push(val.eye);
+          responseData.score.push(val.mouth);
         })
       }
       else{
         responseData.result = "none";
         responseData.score = "";
       }
-      res.json(responseData);
+      
+      
     });
-
-    
+    connection.query('SELECT AVG(gradient)as gradient, AVG(turtle)as turtle, AVG(eye)as eye, AVG(mouth)as mouth FROM upright.habit_count', function(err,rows,fields){
+      //console.log(rows);
+      if(err) throw err;
+      if(rows[0]){
+        responseData.result = "ok";
+        rows.forEach(function(val){
+          responseData.score.push(val.gradient);
+          responseData.score.push(val.turtle);
+          responseData.score.push(val.eye);
+          responseData.score.push(val.mouth);
+        })
+      }
+      else{
+        responseData.result = "none";
+        responseData.score = "";
+      }
+      console.log(responseData.score);
+      res.json(responseData)
+    });
   });

@@ -71,14 +71,14 @@ function sendBjax(url) {
  
     oReq2.addEventListener('load', function() {
         var result2 = JSON.parse(oReq2.responseText);
-        var score2 = result2.score;
+        var score = result2.score;
         var comp_data2 = data2.datasets[0].data;
  
        // for (var i = 0; i < comp_data.length; i++) {
        //     comp_data[i] = score[i];
        // }
-        for (var i = 0; i < 4; i++) {
-          comp_data2[i] = score2[i];
+        for (var i = 16; i < 20; i++) {
+          comp_data2[i-16] = score[i];
         }
         data2.datasets[0].data = comp_data2;
         myBarChart2.update();

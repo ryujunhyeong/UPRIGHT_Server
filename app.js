@@ -1,4 +1,3 @@
-
 const mysql      = require('mysql');
 const connection = mysql.createConnection({
   host     : '210.125.31.247',
@@ -241,20 +240,20 @@ app.get('/correctionimg4', function(req,res){
   });
 });
 
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', (req,res,err) => {
 
   console.error("죽지마 ㅠㅠ");
   console.error(err);
-  location.href = "blog.naver.com";
-  // retruen것이 없기 때문에 process를 종료시켜 줘야함돠!
- // process.exit(1);
+  app.use(function(req, res) {
+   res.status(500).send('서버오류가 발생하였습니다.');
+  })
 });
-
+/*
 app.use(function (err, req, res, next) {
   console.error("서버 오류 발생", err);
   res.status(500).send('서버오류가 발생하였습니다.');
 });
-
+*/
 app.get('/correctionimg5', function(req,res){
   var conn=mysql.createConnection({
     host     : '210.125.31.247',
@@ -277,6 +276,5 @@ app.get('/correctionimg5', function(req,res){
     
   });
 });
-
 
 

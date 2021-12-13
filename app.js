@@ -96,7 +96,7 @@ app.get('/img1', function(req,res){
     database : 'upright'
   })
   conn.connect();
-  var query=conn.query('select img from user_information where id=\''+id+'\'',function(err,rows){
+  var query=conn.query('select img from user_information where id=\''+id+'\' order by number desc',function(err,rows){
     if(err) throw err;
     res.type('png');
     if(rows[0]['img']!=null)
@@ -113,7 +113,7 @@ app.get('/correctionimg1', function(req,res){
     database : 'upright'
   })
   conn.connect();
-  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\' order by number desc',function(err,rows){
     if(err) throw err;
     res.type('png');
     if(rows[0]['img']!=null)
@@ -130,7 +130,7 @@ app.get('/correctionimg2', function(req,res){
     database : 'upright'
   })
   conn.connect();
-  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\' order by number desc',function(err,rows){
     if(err) throw err;
     res.type('png');
     if(rows[1]['img']!=null)
@@ -147,7 +147,7 @@ app.get('/correctionimg3', function(req,res){
     database : 'upright'
   })
   conn.connect();
-  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\' order by number desc',function(err,rows){
     if(err) throw err;
     res.type('png');
     if(rows[2]['img']!=null)
@@ -164,7 +164,7 @@ app.get('/correctionimg4', function(req,res){
     database : 'upright'
   })
   conn.connect();
-  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\' order by number desc',function(err,rows){
     if(err) throw err;
     res.type('png');
     if(rows[3]['img']!=null)
@@ -195,7 +195,7 @@ app.get('/correctionimg5', function(req,res){
     database : 'upright'
   })
   conn.connect();
-  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
+  var query=conn.query('SELECT img FROM imglist where id=\''+id+'\' order by number desc',function(err,rows){
     if(rows.length>=4)
     {
       if(err) throw err;

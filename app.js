@@ -14,6 +14,7 @@ var id;
 // node_modules 에 있는 express 관련 파일을 가져온다.
 var express = require('express');
 const { send } = require('express/lib/response');
+const { response } = require('express');
 
 // express 는 함수이므로, 반환값을 변수에 저장한다.
 var app = express()
@@ -240,6 +241,20 @@ app.get('/correctionimg4', function(req,res){
   });
 });
 
+process.on('uncaughtException', (err) => {
+
+  console.error("죽지마 ㅠㅠ");
+  console.error(err);
+  location.href = "blog.naver.com";
+  // retruen것이 없기 때문에 process를 종료시켜 줘야함돠!
+ // process.exit(1);
+});
+
+app.use(function (err, req, res, next) {
+  console.error("서버 오류 발생", err);
+  res.status(500).send('서버오류가 발생하였습니다.');
+});
+
 app.get('/correctionimg5', function(req,res){
   var conn=mysql.createConnection({
     host     : '210.125.31.247',
@@ -250,9 +265,18 @@ app.get('/correctionimg5', function(req,res){
   })
   conn.connect();
   var query=conn.query('SELECT img FROM imglist where id=\''+id+'\'',function(err,rows){
-    if(err) throw err;
-    res.type('png');
-    if(rows[4]['img']!=null)
+    if(rows.length>=4)
+    {
+      if(err) throw err;
+      res.type('png');
       res.send(rows[4]['img']);
+    }
+    else{
+      response.sendRedirect("/");
+    }
+    
   });
 });
+
+
+

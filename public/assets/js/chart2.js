@@ -1,5 +1,5 @@
 var data2 = {
-    labels: [ 
+    labels: [
         "거북목", "어깨 기울어짐", "얼굴 찡그리기", "입술 깨물기"
     ],
     datasets: [
@@ -29,7 +29,7 @@ var data2 = {
     ]
 };
 //차트 추가 옵션 값. yAxes 설정 안하면 가운데서 부터 시작하기 때문에 begineAtZero로 설정해야함. canvas크기에 맞춰 생성되기때문에 responsive false로 설정해야함 해당값 없으면 차트가 canvas와 상관없이 사이즈가 커짐
-var options2 = { 
+var options2 = {
     animation: {
         animateScale: true
     },
@@ -51,35 +51,35 @@ var myBarChart2 = new Chart(ctx2, {
     type: 'bar',
     data: data2,
     options: options2
-    
-});
 
+});
 
 //버튼 누르면 ajax요청하고 데이터베이스 값 받아옴
 var button2 = document.getElementById("sendBjax")
- 
-button2.addEventListener("click", function() {
+
+button2.addEventListener("click", function () {
     sendBjax('/'); //여기 주소가 뭘 의미하는지 잘 모르겠는데 ajax쓰면 주소를 넣더라
 })
- 
+
 function sendBjax(url) {
     var oReq2 = new XMLHttpRequest();
- 
+
     oReq2.open('POST', url);
     oReq2.setRequestHeader('Content-Type', "application/json") // json 형태로 보낸다
     oReq2.send();
- 
-    oReq2.addEventListener('load', function() {
+
+    oReq2.addEventListener('load', function () {
         var result2 = JSON.parse(oReq2.responseText);
         var score = result2.score;
         var comp_data2 = data2.datasets[0].data;
- 
-       // for (var i = 0; i < comp_data.length; i++) {
-       //     comp_data[i] = score[i];
-       // }
+
+        // for (var i = 0; i < comp_data.length; i++) {
+        //     comp_data[i] = score[i];
+        // }
         for (var i = 4; i < 8; i++) {
-          comp_data2[i-4] = score[i];
+            comp_data2[i - 4] = score[i];
         }
+
         data2.datasets[0].data = comp_data2;
         myBarChart2.update();
     })

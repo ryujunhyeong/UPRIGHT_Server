@@ -1,6 +1,6 @@
 var data2 = {
     labels: [
-        "거북목", "어깨 기울어짐", "얼굴 찡그리기", "입술 깨물기"
+        "본인 거북목", "평균 거북목", "본인 눈깜빡임", "평균 눈깜빡임"
     ],
     datasets: [
         {
@@ -76,8 +76,8 @@ function sendBjax(url) {
         // for (var i = 0; i < comp_data.length; i++) {
         //     comp_data[i] = score[i];
         // }
-        for (var i = 4; i < 8; i++) {
-            comp_data2[i - 4] = score[i];
+        for (var i = 2; i < 6; i++) {
+            comp_data2[i - 2] = score[i];
         }
 
         data2.datasets[0].data = comp_data2;

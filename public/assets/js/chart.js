@@ -1,12 +1,12 @@
 var data = {
     labels: [
-        "거북목", "어깨 기울어짐", "얼굴 찡그리기", "입술 깨물기"
+        "분당 거북목", "분당 눈깜빡임",
     ],
     datasets: [
         {
             label: '횟수', //제목
             data: [ //차트에 들어가는 데이터 값
-                0, 0, 0, 0, 0
+                0, 0,
             ],
             backgroundColor: [ //막대 그래프의 배경색
                 'rgba(255, 99, 132, 0.2)',
@@ -72,11 +72,8 @@ function sendAjax(url) {
         var result = JSON.parse(oReq.responseText);
         var score = result.score;
         var comp_data = data.datasets[0].data;
-
-        // for (var i = 0; i < comp_data.length; i++) {
-        //     comp_data[i] = score[i];
-        // }
-        for (var i = 0; i < 4; i++) {
+        console.log(score)
+        for (var i = 0; i < 2; i++) {
             comp_data[i] = score[i];
         }
 

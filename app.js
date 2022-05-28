@@ -47,17 +47,19 @@ app.use(express.static('public'))
 app.post('/', function (req, res) {
   var responseData = {};
   responseData.score = [];
+  let myTutle;
+  let myEye;
 
-  connection.query('SELECT turtle, eye FROM upright.habit_count where id=\'' + id + '\'', function (err, rows, fields) {
+  connection.query('SELECT turtle, eye, timeCnt FROM upright.habit_count where id=\'' + id + '\'', function (err, rows, fields) {
     //console.log(rows);
     if (err) throw err;
     if (rows[0]) {
       responseData.result = "ok";
       rows.forEach(function (val) {
-        responseData.score.push(0);
-        responseData.score.push(val.turtle);
-        responseData.score.push(val.eye);
-        responseData.score.push(0);
+        myTutle = val.turtle / (val.timeCnt / 60);
+        myEye = val.eye / (val.timeCnt / 60);
+        responseData.score.push(myTutle);
+        responseData.score.push(myEye);
       })
     }
     else {
@@ -65,24 +67,22 @@ app.post('/', function (req, res) {
       responseData.score = "";
     }
   });
-  connection.query('SELECT AVG(turtle)as turtle, AVG(eye)as eye FROM upright.habit_count', function (err, rows, fields) {
+  connection.query('SELECT AVG(turtle)as turtle, AVG(eye)as eye, AVG(timeCnt)as timeCnt FROM upright.habit_count', function (err, rows, fields) {
     //console.log(rows);
     if (err) throw err;
     if (rows[0]) {
       responseData.result = "ok";
       rows.forEach(function (val) {
-        responseData.score.push(0);
-        responseData.score.push(val.turtle);
-        responseData.score.push(val.eye);
-        responseData.score.push(0);
+        responseData.score.push(myTutle);
+        responseData.score.push(val.turtle / (val.timeCnt / 60));
+        responseData.score.push(myEye);
+        responseData.score.push(val.eye / (val.timeCnt / 60));
       })
     }
     else {
       responseData.result = "none";
       responseData.score = "";
     }
-    //console.log('---------------------');
-    //console.log(responseData.score);
     res.json(responseData)
   });
 });
@@ -176,7 +176,7 @@ app.get('/correctionimg4', function (req, res) {
 process.on('uncaughtException', (req, res, err) => {
 
   console.error("죽지마 ㅠㅠ");
-  //console.error(err);
+  console.error(err);
   app.use(function (req, res) {
     res.status(500).send('서버오류가 발생하였습니다.');
   })

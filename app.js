@@ -1,5 +1,4 @@
 const mysql = require("mysql2");
-
 const connection = mysql.createConnection({
   host: '210.125.31.236',
   port: '3306',
@@ -88,7 +87,7 @@ app.post('/', function (req, res) {
 });
 
 
-app.get('/img1', function (req, res) {
+app.post('/imgCnt', function (req, res) {
   var conn = mysql.createConnection({
     host: '210.125.31.236',
     port: '3306',
@@ -97,117 +96,209 @@ app.get('/img1', function (req, res) {
     database: 'upright'
   })
   conn.connect();
-  var query = conn.query('select img from user_information where id=\'' + id + '\' order by number desc', function (err, rows) {
+  var query = conn.query('select COUNT(img) as cnt from imglist where id=\'' + id + '\' ', function (err, rows) {
     if (err) throw err;
-    res.type('png');
-    if (rows[0]['img'] != null)
-      res.send(rows[0]['img']);
+    if (rows[0]) {
+      rows.forEach(function (val) {
+        res.json(val.cnt)
+      })
+    }
+    else
+      res.json(0)
   });
-});
 
-app.get('/correctionimg1', function (req, res) {
-  var conn = mysql.createConnection({
-    host: '210.125.31.236',
-    port: '3306',
-    user: 'test2',
-    password: 's1234',
-    database: 'upright'
-  })
-  conn.connect();
-  var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
-    if (err) throw err;
-    res.type('png');
-    if (rows[0]['img'] != null)
-      res.send(rows[0]['img']);
-  });
-});
 
-app.get('/correctionimg2', function (req, res) {
-  var conn = mysql.createConnection({
-    host: '210.125.31.236',
-    port: '3306',
-    user: 'test2',
-    password: 's1234',
-    database: 'upright'
-  })
-  conn.connect();
-  var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
-    if (err) throw err;
-    res.type('png');
-    if (rows[1]['img'] != null)
-      res.send(rows[1]['img']);
-  });
-});
-
-app.get('/correctionimg3', function (req, res) {
-  var conn = mysql.createConnection({
-    host: '210.125.31.236',
-    port: '3306',
-    user: 'test2',
-    password: 's1234',
-    database: 'upright'
-  })
-  conn.connect();
-  var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
-    if (err) throw err;
-    res.type('png');
-    if (rows[2]['img'] != null)
-      res.send(rows[2]['img']);
-  });
-});
-
-app.get('/correctionimg4', function (req, res) {
-  var conn = mysql.createConnection({
-    host: '210.125.31.236',
-    port: '3306',
-    user: 'test2',
-    password: 's1234',
-    database: 'upright'
-  })
-  conn.connect();
-  var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
-    if (err) throw err;
-    res.type('png');
-    if (rows[3]['img'] != null)
-      res.send(rows[3]['img']);
-  });
-});
-
-process.on('uncaughtException', (req, res, err) => {
-
-  console.error("죽지마 ㅠㅠ");
-  console.error(err);
-  app.use(function (req, res) {
-    res.status(500).send('서버오류가 발생하였습니다.');
-  })
-});
-/*
-app.use(function (err, req, res, next) {
-  console.error("서버 오류 발생", err);
-  res.status(500).send('서버오류가 발생하였습니다.');
-});
-*/
-app.get('/correctionimg5', function (req, res) {
-  var conn = mysql.createConnection({
-    host: '210.125.31.236',
-    port: '3306',
-    user: 'test2',
-    password: 's1234',
-    database: 'upright'
-  })
-  conn.connect();
-  var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
-    if (rows.length >= 4) {
+  app.get('/correctionimg1', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      res.send(rows[4]['img']);
-    }
-    else {
-      response.sendRedirect("/");
-    }
+      if (rows[0]['img'] != null) {
+        res.send(rows[0]['img']);
+      }
+    });
+  });
 
+  // app.get('/correctionimg1', function (req, res) {
+  //   var conn = mysql.createConnection({
+  //     host: '210.125.31.236',
+  //     port: '3306',
+  //     user: 'test2',
+  //     password: 's1234',
+  //     database: 'upright'
+  //   })
+  //   conn.connect();
+  //   var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+  //     const resData = [];
+  //     if (err) throw err;
+  //     res.type('png');
+  //     for (let i = 0; i < rows.length; i++) {
+  //       if (rows[i]['img'] != null) {
+  //         resData.push(rows[i]['img'])
+  //       }
+  //     }
+  //     res.send(resData);
+  //   });
+  // });
+
+  app.get('/correctionimg2', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (err) throw err;
+      res.type('png');
+      if (rows[1]['img'] != null)
+        res.send(rows[1]['img']);
+    });
+  });
+
+  app.get('/correctionimg3', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (err) throw err;
+      res.type('png');
+      if (rows[2]['img'] != null)
+        res.send(rows[2]['img']);
+    });
+  });
+
+  app.get('/correctionimg4', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (err) throw err;
+      res.type('png');
+      if (rows[3]['img'] != null)
+        res.send(rows[3]['img']);
+    });
+  });
+
+  app.get('/correctionimg5', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (err) throw err;
+      res.type('png');
+      if (rows[4]['img'] != null)
+        res.send(rows[4]['img']);
+    });
+  });
+
+  app.get('/correctionimg6', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (err) throw err;
+      res.type('png');
+      if (rows[5]['img'] != null)
+        res.send(rows[5]['img']);
+    });
+  });
+
+  app.get('/correctionimg7', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (err) throw err;
+      res.type('png');
+      if (rows[6]['img'] != null)
+        res.send(rows[6]['img']);
+    });
+  });
+
+  app.get('/correctionimg8', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (err) throw err;
+      res.type('png');
+      if (rows[7]['img'] != null)
+        res.send(rows[7]['img']);
+    });
+  });
+  process.on('uncaughtException', (req, res, err) => {
+
+    console.error("죽지마 ㅠㅠ");
+    console.error(err);
+    app.use(function (req, res) {
+      res.status(500).send('서버오류가 발생하였습니다.');
+    })
+  });
+  /*
+  app.use(function (err, req, res, next) {
+    console.error("서버 오류 발생", err);
+    res.status(500).send('서버오류가 발생하였습니다.');
+  });
+  */
+  app.get('/correctionimg5', function (req, res) {
+    var conn = mysql.createConnection({
+      host: '210.125.31.236',
+      port: '3306',
+      user: 'test2',
+      password: 's1234',
+      database: 'upright'
+    })
+    conn.connect();
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+      if (rows.length >= 4) {
+        if (err) throw err;
+        res.type('png');
+        res.send(rows[4]['img']);
+      }
+      else {
+        response.sendRedirect("/");
+      }
+
+    });
   });
 });
-
-
-//

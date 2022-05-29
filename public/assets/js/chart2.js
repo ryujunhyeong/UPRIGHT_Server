@@ -73,9 +73,6 @@ function sendBjax(url) {
         var score = result2.score;
         var comp_data2 = data2.datasets[0].data;
 
-        // for (var i = 0; i < comp_data.length; i++) {
-        //     comp_data[i] = score[i];
-        // }
         for (var i = 2; i < 6; i++) {
             comp_data2[i - 2] = score[i];
         }

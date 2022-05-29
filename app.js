@@ -117,7 +117,7 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 0, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
       if (rows[0]['img'] != null) {
@@ -157,11 +157,11 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 1, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      if (rows[1]['img'] != null)
-        res.send(rows[1]['img']);
+      if (rows[0]['img'] != null)
+        res.send(rows[0]['img']);
     });
   });
 
@@ -174,11 +174,11 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 2, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      if (rows[2]['img'] != null)
-        res.send(rows[2]['img']);
+      if (rows[0]['img'] != null)
+        res.send(rows[0]['img']);
     });
   });
 
@@ -191,11 +191,11 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 3, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      if (rows[3]['img'] != null)
-        res.send(rows[3]['img']);
+      if (rows[0]['img'] != null)
+        res.send(rows[0]['img']);
     });
   });
 
@@ -208,11 +208,11 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 4, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      if (rows[4]['img'] != null)
-        res.send(rows[4]['img']);
+      if (rows[0]['img'] != null)
+        res.send(rows[0]['img']);
     });
   });
 
@@ -225,11 +225,11 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 5, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      if (rows[5]['img'] != null)
-        res.send(rows[5]['img']);
+      if (rows[0]['img'] != null)
+        res.send(rows[0]['img']);
     });
   });
 
@@ -242,11 +242,11 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 6, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      if (rows[6]['img'] != null)
-        res.send(rows[6]['img']);
+      if (rows[0]['img'] != null)
+        res.send(rows[0]['img']);
     });
   });
 
@@ -259,11 +259,11 @@ app.post('/imgCnt', function (req, res) {
       database: 'upright'
     })
     conn.connect();
-    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc', function (err, rows) {
+    var query = conn.query('SELECT img FROM imglist where id=\'' + id + '\' order by number desc LIMIT 7, 1', function (err, rows) {
       if (err) throw err;
       res.type('png');
-      if (rows[7]['img'] != null)
-        res.send(rows[7]['img']);
+      if (rows[0]['img'] != null)
+        res.send(rows[0]['img']);
     });
   });
   process.on('uncaughtException', (req, res, err) => {
